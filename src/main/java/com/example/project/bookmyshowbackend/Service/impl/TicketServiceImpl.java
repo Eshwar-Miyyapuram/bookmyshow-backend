@@ -12,12 +12,14 @@ import com.example.project.bookmyshowbackend.Repository.TicketRepository;
 import com.example.project.bookmyshowbackend.Repository.UserRepository;
 import com.example.project.bookmyshowbackend.Service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class TicketServiceImpl implements TicketService {
 
     @Autowired
@@ -67,7 +69,9 @@ public class TicketServiceImpl implements TicketService {
 
         //Connect in show and USer
 //        showEntity.setListOfTickets();
+          showEntity.getListOfTickets().add(ticketEntity);
 //        userEntity.setListOftTickets();
+          userEntity.getListOfTickets().add(ticketEntity);
 
         ticketRepository.save(ticketEntity);
         return TicketAdapter.converterEntityToDto(ticketEntity);

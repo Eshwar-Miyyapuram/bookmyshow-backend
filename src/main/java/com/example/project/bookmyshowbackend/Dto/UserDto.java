@@ -4,6 +4,8 @@ package com.example.project.bookmyshowbackend.Dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -19,4 +21,6 @@ public class UserDto {
 
     @NotNull
     String mobileNo;
+
+    List<TicketDto> tickets;
 }
