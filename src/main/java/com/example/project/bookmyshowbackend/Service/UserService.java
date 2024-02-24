@@ -4,7 +4,7 @@ import com.example.project.bookmyshowbackend.Dto.UserDto;
 
 public interface UserService {
 
-    void addUser(UserDto userdto);
+    void addUser(UserDto userdto) throws Exception;
 
     UserDto getUser(int id);
 }

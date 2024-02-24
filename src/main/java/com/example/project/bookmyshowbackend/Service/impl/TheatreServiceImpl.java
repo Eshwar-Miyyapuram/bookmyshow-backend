@@ -24,9 +24,13 @@ public class TheatreServiceImpl implements TheatreService {
     TheatreRepository theatreRepository;
 
     @Override
-    public TheatreDto addTheatre(TheatreDto theatreDto) {
-
+    public TheatreDto addTheatre(TheatreDto theatreDto) throws Exception {
+        List<TheatreEntity> theatreEntityList=theatreRepository.findByName(theatreDto.getName());
+        if(theatreEntityList.size()>0){
+            throw new Exception();
+        }
         TheatreEntity theatreEntity = TheatreAdapter.convertDtoToEntity(theatreDto);
+        theatreRepository.save(theatreEntity);
         createTheatreSeats(theatreEntity);
         theatreRepository.save(theatreEntity);
         return theatreDto;
@@ -48,15 +52,16 @@ public class TheatreServiceImpl implements TheatreService {
         seats.add(getTheatreSeats("B4",200,SeatType.PREMIUM,theatreEntity));
         seats.add(getTheatreSeats("B5",200,SeatType.PREMIUM,theatreEntity));
 
-        theatreSeatRepository.saveAll(seats);
+        theatreEntity.setListOfTheatreSeats(seats);
+//        theatreSeatRepository.saveAll(seats);
     }
 
     TheatreSeatEntity getTheatreSeats(String seatName, int rate, SeatType seatType,TheatreEntity theatreEntity) {
 
         TheatreSeatEntity theatreSeatEntity= TheatreSeatEntity.builder().seatNo(seatName).rate(rate).seatType(seatType).build();
-
         theatreSeatEntity.setTheatre(theatreEntity);
 
+        theatreSeatRepository.save(theatreSeatEntity);
         return theatreSeatEntity;
     }
 

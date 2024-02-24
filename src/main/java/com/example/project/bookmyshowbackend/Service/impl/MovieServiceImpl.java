@@ -9,15 +9,22 @@ import com.example.project.bookmyshowbackend.Service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieServiceImpl implements MovieService {
 
+    //
     @Autowired
     MovieRepository movieRepository;
 
     @Override
-    public void addMovie(MovieDto movieDto) {
-
+    public void addMovie(MovieDto movieDto) throws Exception{
+        List<MovieEntity> movieEntityList=movieRepository.findByName(movieDto.getName());
+        if(movieEntityList.size()>0){
+            System.out.println("movie already exists");
+            throw new Exception();
+        }
         MovieEntity movieEntity=MovieAdapter.converterDtoToEntity(movieDto);
         movieRepository.save(movieEntity);
     }

@@ -27,13 +27,14 @@ public class ShowSeatsEntity {
     @Column(nullable = false)
     private int rate;
 
-    @Column(name = "is_booked", nullable = false)
+//    , columnDefinition = "boolean default false"
+    @Column(name = "is_booked", columnDefinition = "boolean default false")
     private boolean booked;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookedAt;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SeatType seatType;
 

@@ -8,7 +8,10 @@ import lombok.experimental.UtilityClass;
 public class ShowAdapter {
 
     public ShowDto convertEntityToDto(ShowEntity showEntity){
+
         return ShowDto.builder().id(showEntity.getId()).showDate(showEntity.getShowDate()).showTime(showEntity.getShowTime())
+                .movieDto(MovieAdapter.converterEntityToDto(showEntity.getMovie()))
+                .theatreDto(TheatreAdapter.convertEntityToDto(showEntity.getTheatre()))
                 .build();
     }
 

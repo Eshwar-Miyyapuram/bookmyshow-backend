@@ -1,6 +1,8 @@
 package com.example.project.bookmyshowbackend.Models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,19 +29,17 @@ public class ShowEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)  //DATE VARIABLE
+    @Column(nullable = false)//DATE VARIABLE
     private LocalDate showDate;
 
     @Column(nullable = false)
-    private LocalDate showTime;
+    private LocalTime showTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
+    @CreationTimestamp
     @Column(name ="created_at")  // TEMPORAL VALUE
     private Date createdOn;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
+    @UpdateTimestamp
     @Column(name ="updated_at")
     private Date updatedOn;
 

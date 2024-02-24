@@ -1,8 +1,12 @@
 package com.example.project.bookmyshowbackend.Dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,8 +16,12 @@ import java.time.LocalDate;
 public class ShowDto {
 
     int id;
+    @NotNull
     LocalDate showDate;
-    LocalDate showTime;
+    @NotNull
+    LocalTime showTime;
+    @NotNull
     MovieDto movieDto;
+    @NotNull
     TheatreDto theatreDto;
 }

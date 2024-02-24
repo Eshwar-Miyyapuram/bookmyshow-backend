@@ -19,7 +19,12 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public void addUser(UserDto userdto) {
+    public void addUser(UserDto userdto) throws Exception{
+
+        List<UserEntity> userEntityList=userRepository.findByMobileNo(userdto.getMobileNo());
+        if(userEntityList.size()>0){
+            throw new Exception();
+        }
 
         UserEntity userEntity= UserAdapter.convertDtoToEntity(userdto);
 

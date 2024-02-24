@@ -40,6 +40,8 @@ public class ShowServiceImpl implements ShowService {
 
         List<TheatreSeatEntity> list_of_theatreSeats=theatreEntity.getListOfTheatreSeats();
 
+        showRepository.save(showEntity);
+
         generateShowSeats(list_of_theatreSeats,showEntity);
 
         showRepository.save(showEntity);
@@ -56,10 +58,14 @@ public class ShowServiceImpl implements ShowService {
         }
 
         for(ShowSeatsEntity seat:list_of_showSeats){
+
             seat.setShow(showEntity);
         }
 
         showSeatsRepository.saveAll(list_of_showSeats);
+
+        showEntity.setListOfShowSeats(list_of_showSeats);
+
     }
 
     @Override
@@ -68,5 +74,15 @@ public class ShowServiceImpl implements ShowService {
         ShowEntity showEntity=showRepository.findById(id).get();
         ShowDto showDto = ShowAdapter.convertEntityToDto(showEntity);
         return showDto;
+    }
+
+    public List<ShowDto> getShowsInTheatre(TheatreEntity theatre){
+        List<ShowEntity> shows=showRepository.findByTheatre(theatre);
+        List<ShowDto> showDtoList=new ArrayList<>();
+        for(ShowEntity show:shows){
+            showDtoList.add(ShowAdapter.convertEntityToDto(show));
+        }
+
+        return showDtoList;
     }
 }

@@ -4,7 +4,8 @@ import com.example.project.bookmyshowbackend.Dto.MovieDto;
 
 public interface MovieService {
 
-    void addMovie(MovieDto movieDto);
+//    ?createTableIfNotExists=true
+    void addMovie(MovieDto movieDto) throws Exception;
 
     MovieDto getMovie(int id);
 }
